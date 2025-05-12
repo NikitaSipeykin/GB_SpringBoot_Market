@@ -1,0 +1,29 @@
+<nav class="navbar navbar-dark bg-dark navbar-expand" th:fragment="nav-bar">
+    <div class="container">
+        <a class="navbar-brand" href="#" th:href="@{'/'}">Магазин</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" th:href="@{'/'}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{'/'}">О нас</a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                    <a class="nav-link" th:href="@{'/admin'}">Администрирование</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-inline">
+            <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-sm btn-outline-secondary">Войти</a>
+        </div>
+        <form sec:authorize="isAuthenticated()" method="post" th:action="@{'/logout'}" class="form-inline">
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Выйти</button>
+        </form>
+    </div>
+</nav>

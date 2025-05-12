@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Админ панель</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<nav th:replace="fragments/nav-bar::nav-bar">
+</nav>
+<div class="container">
+    <h1 th:text="#{title.product.list}">Список товаров</h1>
+    <h4 th:text="'Вы вошли как ' +${#authentication.getName()}"></h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>Название</td>
+            <td>Категория</td>
+            <td>Цена</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}">1</td>
+            <td th:text="${product.title}">Экран</td>
+            <td th:text="${product.category}">Техника</td>
+            <td th:text="${product.price}">999</td>
+            <td><a th:href="@{${'/info/' + product.id}}">Подробнее</a></td>
+            <td><form method="post" th:action="@{${'/admin/delete/' + product.id}}">
+                <button type="submit" class="btn btn-danger">x</button>
+            </form></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{'/admin/add'}" class="btn btn-primary">Добавить</a>
+</div>
+</body>
+</html>
