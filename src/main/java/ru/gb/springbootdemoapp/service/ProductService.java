@@ -5,6 +5,7 @@ import ru.gb.springbootdemoapp.model.Product;
 import ru.gb.springbootdemoapp.repository.ProductRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -22,8 +23,8 @@ public class ProductService {
     productRepository.save(product);
   }
 
-  public Product findById(Long id) {
-    return productRepository.findById(id).orElse(null);
+  public Optional<Product> findById(Long id) {
+    return productRepository.findById(id);
   }
 
   public void deleteById(Long id) {

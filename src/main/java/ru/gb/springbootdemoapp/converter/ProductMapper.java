@@ -2,9 +2,11 @@ package ru.gb.springbootdemoapp.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.webjars.NotFoundException;
+import ru.gb.springbootdemoapp.dto.CartItem;
 import ru.gb.springbootdemoapp.dto.ProductDto;
 import ru.gb.springbootdemoapp.dto.ProductShortDto;
 import ru.gb.springbootdemoapp.model.Category;
@@ -19,6 +21,12 @@ public abstract class ProductMapper {
 
   @Mapping(source = "category", target = "category", qualifiedByName = "titleToCategory")
   public abstract Product productShortDtoToProduct(ProductShortDto productShortDto);
+
+  @Mappings({
+      @Mapping(source = "id", target = "productId"),
+      @Mapping(source = "price", target = "pricePerOne")
+  })
+  public abstract CartItem productToCartItem(Product product);
 
   @Mapping(source = "category.title", target = "category")
   public abstract ProductDto productToProductDto(Product product);
