@@ -19,11 +19,18 @@
             </ul>
         </div>
 
+        <i class="fas fa-shopping-bag shopping-cart-badge" onclick="displayCart()"></i>
+
         <div class="form-inline">
             <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-sm btn-outline-secondary">Войти</a>
         </div>
         <form sec:authorize="isAuthenticated()" method="post" th:action="@{'/logout'}" class="form-inline">
             <button type="submit" class="btn btn-sm btn-outline-secondary">Выйти</button>
         </form>
+
+        <div id="shoppingCart" class="shopping-cart d-none">
+        </div>
+
+        <script>getAndRenderCart();</script>
     </div>
 </nav>

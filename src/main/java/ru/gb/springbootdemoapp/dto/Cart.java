@@ -25,7 +25,7 @@ public class Cart {
             items.remove(item);
           }
         });
-    
+
     recalculate();
   }
 
