@@ -48,6 +48,6 @@ function renderCart(cart) {
     });
     cartInnerHtml += `
     </ul>
-    <a href="#" class="btn btn-success w-100">Оформить заказ</a>`;
+    <a href="/order" class="btn btn-success w-100">Оформить заказ</a>`;
     document.getElementById("shoppingCart").innerHTML = cartInnerHtml;
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/common-head">
+    <title>Оформление заказа</title>
+</head>
+<body>
+<nav th:replace="fragments/nav-bar::nav-bar">
+</nav>
+<div class="container">
+    <div class="row justify-content-center g-0">
+        <div class="col-6">
+            <h2>Оформление заказа</h2>
+            <div th:if="${illegalStateException}" th:text="${illegalStateException.getMessage()}" class="alert alert-danger"></div>
+            <form method="post" th:action="@{/order}" class="col-md-6">
+                <div class="mb-3">
+                    <label for="email" class="form-label">email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Адрес</label>
+                    <input type="text" class="form-control" id="address" name="address">
+                    <br>
+                </div>
+                <button type="submit" class="btn btn-primary" >Заказать</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
