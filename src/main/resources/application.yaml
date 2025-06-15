@@ -1,11 +1,15 @@
 server:
   port: 8080
+#  servlet:
+#    session:
+#      cookie:
+#        max-age: 10s
 spring:
   datasource:
     driver-class-name: org.h2.Driver
     # Для работы с h2 в файловом режиме пропишите в похожем виде:
     #url: jdbc:h2:file:C:/Users/.../TestDataBase
-    url: jdbc:h2:file:./data/practice/spring-boot-market/market-db;MODE=PostgreSQL
+    url: jdbc:h2:mem:/Users/denis/gb_spring_1/practice/spring-boot-market/market-db;MODE=PostgreSQL
     username: admin
     password: admin
   jpa:
@@ -13,3 +17,19 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000

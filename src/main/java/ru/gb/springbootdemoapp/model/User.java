@@ -14,11 +14,14 @@ public class User {
   @Column
   private Long id;
 
-  @Column(name = "login")
-  private String login;
+  @Column(name = "email")
+  private String email;
 
   @Column(name = "password")
   private String password;
+
+  @Column(name = "enabled")
+  private Boolean enabled;
 
   @ManyToMany
   @JoinTable(

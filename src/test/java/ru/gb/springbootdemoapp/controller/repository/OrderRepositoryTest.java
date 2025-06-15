@@ -38,7 +38,6 @@ public class OrderRepositoryTest {
     entityManager.persist(order2);
     entityManager.persist(order3);
 
-
     List<Order> orders = orderRepository.findAllByOrderStatusEquals(OrderStatus.NEW);
 
     assertEquals(2, orders.size());

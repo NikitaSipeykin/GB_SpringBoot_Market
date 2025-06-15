@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:with="currentPage='Форма входа'">
+<html xmlns:th="http://www.thymeleaf.org" th:with="currentPage='Форма регистрации'">
 <head th:include="fragments/common-head">
 </head>
 <body>
@@ -7,8 +7,8 @@
 </nav>
 <div class="container">
     <div class="row justify-content-center">
-        <form method="post" th:action="@{/login}" class="col-md-6">
-            <h2>Вход</h2>
+        <form method="post" th:action="@{/register}" class="col-md-6">
+            <h2>Регистрация</h2>
             <div class="mb-3">
                 <label for="name" class="form-label">Email</label>
                 <input type="email" class="form-control" id="name" name="username">
@@ -18,8 +18,8 @@
                 <input type="password" class="form-control" id="score" name="password">
                 <br>
             </div>
-            <a th:href="@{'/register'}" class="btn btn-secondary">Регистрация</a>
-            <button type="submit" class="btn btn-primary">Войти</button>
+            <a th:href="@{'/login'}" class="btn btn-secondary">Войти</a>
+            <button type="submit" class="btn btn-primary">Регистрация</button>
         </form>
     </div>
 </div>

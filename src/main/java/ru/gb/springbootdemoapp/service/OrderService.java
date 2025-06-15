@@ -35,7 +35,7 @@ public class OrderService {
       throw new IllegalStateException("Cart is empty");
     }
 
-    User user = principal != null ? userRepository.findByLogin(principal.getName()).orElse(null) : null;
+    User user = principal != null ? userRepository.findByEmail(principal.getName()).orElse(null) : null;
 
     Order order = new Order();
     order.setCustomer(user);
