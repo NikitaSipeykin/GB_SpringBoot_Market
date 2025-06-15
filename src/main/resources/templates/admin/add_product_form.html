@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="currentPage='Форма добавления товара'">
 <head th:include="fragments/common-head">
-    <title>Форма добавления товара</title>
 </head>
 <body>
 <nav th:replace="fragments/nav-bar::nav-bar">
@@ -9,7 +9,7 @@
 <div class="container">
     <h1 th:text="#{title.product.form}">Форма добавления товара</h1>
     <div class="row">
-        <form method="post" th:action="@{/admin/add}" class="col-md-6" th:object="${productShortDto}">
+        <form method="post" th:action="@{/admin/add}" class="col-md-6" th:object="${productShortDto}" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">Название</label>
                 <input type="text" class="form-control" id="name" th:field="*{title}">
@@ -33,6 +33,11 @@
                 <br>
                 <div th:each="err : ${#fields.errors('price')}" th:text="${err}" class="alert alert-danger">
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Изображение</label>
+                <input type="file" class="form-control" id="image" name="image">
+                <br>
             </div>
             <a th:href="@{'/'}" class="btn btn-secondary">Отмена</a>
             <button type="submit" class="btn btn-primary">Сохранить</button>

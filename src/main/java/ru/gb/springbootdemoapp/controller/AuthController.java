@@ -5,14 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.gb.springbootdemoapp.service.UserService;
+import ru.gb.springbootdemoapp.service.RegistrationService;
 
 @Controller
 public class AuthController {
-  private final UserService userService;
 
-  public AuthController(UserService userService) {
-    this.userService = userService;
+  private final RegistrationService registrationService;
+
+  public AuthController(RegistrationService registrationService) {
+    this.registrationService = registrationService;
   }
 
   @GetMapping("/login")
@@ -27,21 +28,20 @@ public class AuthController {
 
   @PostMapping("/register")
   public String register(@RequestParam String username, @RequestParam String password, Model model) {
-    // Todo: accept 2 passwords and compare it
-    // Todo: email and regexp validation
-
-    String token = userService.sighUp(username, password); //Todo: get the error and send to user
+    // TODO принимать два пароля и сравнивать
+    // TODO валидация email regexp
+    String token = registrationService.sighUp(username, password); // TODO обработать ошибку и вывести пользователю
     model.addAttribute("token", token);
-
     return "register-confirm";
   }
 
   @GetMapping("/register/confirm")
-  public String registerConfirm(@RequestParam String token){
-    if (userService.confirmRegistration(token)){
+  public String registerConfirm(@RequestParam String token) {
+    // TODO токен истек - что делать
+    if (registrationService.confirmRegistration(token)) {
       return "register-complete";
     }
-    //Todo: response something logical
+    // TODO что-то выдавать разумное
     return "redirect:/";
   }
 }

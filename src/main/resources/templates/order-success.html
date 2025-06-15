@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" th:with="currentPage='Заказ успешно оформлен'">
 <head th:include="fragments/common-head">
-    <title>Заказ успешно оформлен</title>
 </head>
 <body>
 <nav th:replace="fragments/nav-bar::nav-bar">
@@ -10,6 +9,7 @@
     <div class="row justify-content-center g-0">
         <div class="col-6">
             <h2>Заказ успешно оформлен</h2>
+            <p>На Вашу почту отправлено письмо с деталями заказа</p>
         </div>
     </div>
 </div>

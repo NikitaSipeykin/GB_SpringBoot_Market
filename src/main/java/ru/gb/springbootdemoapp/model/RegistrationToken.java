@@ -1,11 +1,16 @@
 package ru.gb.springbootdemoapp.model;
 
+import java.time.LocalDateTime;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "registration_tokens")
@@ -25,11 +30,11 @@ public class RegistrationToken {
 
   @ManyToOne
   @JoinColumn(name = "user_id")
-  private User user;
+  private AppUser appUser;
 
-  public RegistrationToken(String token, LocalDateTime expiredAt, User user) {
+  public RegistrationToken(String token, LocalDateTime expiredAt, AppUser appUser) {
     this.token = token;
     this.expiredAt = expiredAt;
-    this.user = user;
+    this.appUser = appUser;
   }
 }

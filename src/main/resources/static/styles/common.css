@@ -53,7 +53,7 @@
     font-size: 16px;
 }
 .shopping-cart .shopping-cart-items .item-price {
-    color: #6394F8;
+    color: #7dcddf;
     margin-right: 8px;
 }
 .shopping-cart .shopping-cart-items .item-quantity {
@@ -64,5 +64,18 @@
     color: gray;
     margin-top: 13px;
     margin-right: 10px;
+    cursor: pointer;
+}
+
+.cart-button {
+    background: #4db9d0;
+    border: none;
+    border-radius: 0;
+    color: white;
+    height: 40px;
+}
+.cart-button:hover {
+    background: #179bb4;
+    color: white;
     cursor: pointer;
 }

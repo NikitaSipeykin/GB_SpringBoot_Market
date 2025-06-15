@@ -1,36 +1,44 @@
 package ru.gb.springbootdemoapp.model;
 
-import lombok.Data;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import lombok.Data;
 
 @Entity
+@Table(name="orders")
 @Data
-@Table(name = "orders")
 public class Order {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column
   private Long id;
 
-  @Column
+  @Column(name = "price")
   private Double price;
 
   @ManyToOne
   @JoinColumn(name = "customer_id")
-  private User customer;
-
-  @Column
-  private String address;
-
-  @Column
-  private String details;
+  private AppUser customer;
 
   @Column(name = "contact_email")
   private String contactEmail;
+
+  @Column(name = "details")
+  private String details;
+
+  @Column(name = "address")
+  private String address;
 
   @Enumerated
   @Column(columnDefinition = "smallint")

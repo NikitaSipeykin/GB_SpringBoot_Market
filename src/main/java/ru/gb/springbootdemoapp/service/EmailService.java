@@ -1,40 +1,88 @@
 package ru.gb.springbootdemoapp.service;
 
+import java.util.Collection;
+import java.util.Map;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import ru.gb.springbootdemoapp.model.EmailType;
 
 @Service
 public class EmailService {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
   private final JavaMailSender mailSender;
 
-  public EmailService(JavaMailSender javaMailSender) {
-    this.mailSender = javaMailSender;
+  public EmailService(JavaMailSender mailSender) {
+    this.mailSender = mailSender;
   }
 
   @Async
-  public void sendVerificationLink(String to, String token){
+  public void sendMail(EmailType emailType, Map<String, Object> params, Collection<String> receivers) {
+    switch (emailType) {
+      case USER_REGISTRATION:
+        receivers.forEach(receiver -> sendVerificationLink(receiver, params));
+        break;
+      case USER_ORDER_CREATED:
+        receivers.forEach(receiver -> sendOrderDetailsToUser(receiver, params));
+        break;
+      case MANAGER_ORDER_CREATED:
+        receivers.forEach(receiver -> sendOrderDetailsToManager(receiver, params));
+        break;
+    }
+  }
+
+  private void sendOrderDetailsToManager(String to, Map<String, Object> params) {
     try {
       MimeMessage mimeMessage = mailSender.createMimeMessage();
       MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
       helper.setTo(to);
-      helper.setFrom("GeekMarket@gb.ru");
-      helper.setSubject("Prove your email");
-      helper.setText(generateVerificationEmailText(token), true);
+      helper.setFrom("geek-market@gb.ru");
+      helper.setSubject("Поступил новый заказ");
+      helper.setText("Заказ №" + params.get("orderId") + " ожидает обработки", false);
 
       mailSender.send(mimeMessage);
     } catch (MessagingException e) {
-      LOGGER.error("failed to send email ", e);
+      LOGGER.error("failed to send mail ", e);
     }
   }
 
+  private void sendOrderDetailsToUser(String to, Map<String, Object> params) {
+    try {
+      MimeMessage mimeMessage = mailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+      helper.setTo(to);
+      helper.setFrom("geek-market@gb.ru");
+      helper.setSubject("Заказ успешно сформирован");
+      helper.setText("Заказ №" + params.get("orderId") + " на сумму " + params.get("price") + " успешно создан", false);
+
+      mailSender.send(mimeMessage);
+    } catch (MessagingException e) {
+      LOGGER.error("failed to send mail ", e);
+    }
+  }
+
+  private void sendVerificationLink(String to, Map<String, Object> params) {
+    try {
+      MimeMessage mimeMessage = mailSender.createMimeMessage();
+      MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+      helper.setTo(to);
+      helper.setFrom("geek-market@gb.ru");
+      helper.setSubject("Подтвердите ваш email");
+      helper.setText(generateVerificationEmailText((String) params.get("token")), true);
+
+      mailSender.send(mimeMessage);
+    } catch (MessagingException e) {
+      LOGGER.error("failed to send mail ", e);
+    }
+  }
+
+  // TODO работа с mail темплейтами попробовать вынести в базу
   private String generateVerificationEmailText(String token) {
     return "<!doctype html>\n" +
         "<html>\n" +
