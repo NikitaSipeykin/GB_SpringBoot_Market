@@ -10,8 +10,11 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#" th:href="@{'/'}">Главная</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" th:href="@{'/category'}">Категории</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/'}">О нас</a>
+                    <a class="nav-link" th:href="@{'/about'}">О нас</a>
                 </li>
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{'/admin'}">Администрирование</a>
