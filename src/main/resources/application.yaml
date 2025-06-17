@@ -19,7 +19,7 @@ spring:
       enabled: true
   mail:
     host: localhost
-    port: 1025
+    port: 25
     username: hello
     password: hello
     properties:

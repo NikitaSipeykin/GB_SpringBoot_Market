@@ -73,7 +73,7 @@ public class OrderService {
     order.setOrderItems(orderItems);
 
     orderRepository.save(order);
-    cartService.init();
+    cartService.removeCartForCurrentUser();
 
     List<String> managerEmails = userService.getActiveManagers().stream().map(AppUser::getEmail).collect(Collectors.toList());
 
