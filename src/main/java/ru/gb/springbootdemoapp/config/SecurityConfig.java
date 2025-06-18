@@ -16,15 +16,17 @@ import ru.gb.springbootdemoapp.service.UserService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private final UserService userService;
+  private final BCryptPasswordEncoder passwordEncoder;
 
-  public SecurityConfig(UserService userService) {
+  public SecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder) {
     this.userService = userService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setPasswordEncoder(new BCryptPasswordEncoder());
+    provider.setPasswordEncoder(passwordEncoder);
     provider.setUserDetailsService(userService);
     return provider;
   }

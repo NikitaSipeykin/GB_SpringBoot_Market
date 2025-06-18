@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:with="currentPage='Главная'">
+<head th:include="fragments/common-head">
+</head>
+<body>
+<nav th:replace="fragments/nav-bar::nav-bar">
+</nav>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-slide-to="0" class="active"></li>
+        <li data-slide-to="1"></li>
+        <li data-slide-to="2"></li>
+        <li data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" th:src="@{/images/banner.png}" src="..." alt="Акция 1">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Назад</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Вперед</span>
+    </a>
+</div>
+<div class="container">
+    <h1>Рекомендуемые товары</h1>
+    <div  sec:authorize="isAuthenticated()">
+        <h4 th:text="'Вы вошли как ' +${#authentication.getName()}"></h4>
+    </div>
+
+    <div class="row">
+        <div th:each="product : ${products}" class="col-12 col-sm-6 col-md-3 mb-1">
+            <div class="card shadow h-100">
+                <img class="card-body card-img-top" th:src="@{${product.imageUrl}}" src="..." alt="Product info">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">
+                        <a class="link-dark" th:href="@{${'/product/info/' + product.id}}" th:text="${product.title}">Подробнее</a>
+                    </h5>
+
+                    <p th:text="${product.category}" class="card-text">Категория</p>
+                    <p th:text="${product.price}" class="card-text mt-auto">Цена</p>
+                </div>
+                <button th:attr="data-product-id=${product.id}" class="cart-button w-100" onclick="onClickAddToCart(this)">
+                    В корзину
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

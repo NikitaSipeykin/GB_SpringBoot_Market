@@ -1,12 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Форма добавления товара</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script>
-
-    </script>
+<html xmlns:th="http://www.thymeleaf.org" th:with="currentPage='Форма входа'">
+<head th:include="fragments/common-head">
 </head>
 <body>
 <nav th:replace="fragments/nav-bar::nav-bar">
@@ -16,15 +10,15 @@
         <form method="post" th:action="@{/login}" class="col-md-6">
             <h2>Вход</h2>
             <div class="mb-3">
-                <label for="name" class="form-label">Логин</label>
-                <input type="text" class="form-control" id="name" name="username">
+                <label for="name" class="form-label">Email</label>
+                <input type="email" class="form-control" id="name" name="username">
             </div>
             <div class="mb-3">
                 <label for="score" class="form-label">Пароль</label>
-                <input type="text" class="form-control" id="score" name="password">
+                <input type="password" class="form-control" id="score" name="password">
                 <br>
             </div>
-            <a th:href="@{'/'}" class="btn btn-secondary">Отмена</a>
+            <a th:href="@{'/register'}" class="btn btn-secondary">Регистрация</a>
             <button type="submit" class="btn btn-primary">Войти</button>
         </form>
     </div>

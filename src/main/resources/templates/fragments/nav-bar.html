@@ -10,8 +10,11 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#" th:href="@{'/'}">Главная</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" th:href="@{'/category'}">Категории</a>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/'}">О нас</a>
+                    <a class="nav-link" th:href="@{'/about'}">О нас</a>
                 </li>
                 <li sec:authorize="hasRole('ADMIN')" class="nav-item">
                     <a class="nav-link" th:href="@{'/admin'}">Администрирование</a>
@@ -19,11 +22,18 @@
             </ul>
         </div>
 
+        <i class="fas fa-shopping-bag shopping-cart-badge" onclick="displayCart()"></i>
+
         <div class="form-inline">
             <a sec:authorize="!isAuthenticated()" th:href="@{'/login'}" class="btn btn-sm btn-outline-secondary">Войти</a>
         </div>
         <form sec:authorize="isAuthenticated()" method="post" th:action="@{'/logout'}" class="form-inline">
             <button type="submit" class="btn btn-sm btn-outline-secondary">Выйти</button>
         </form>
+
+        <div id="shoppingCart" class="shopping-cart d-none">
+        </div>
+
+        <script>getAndRenderCart();</script>
     </div>
 </nav>

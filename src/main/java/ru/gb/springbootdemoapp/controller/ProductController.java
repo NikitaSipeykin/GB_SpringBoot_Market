@@ -1,5 +1,7 @@
 package ru.gb.springbootdemoapp.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ru.gb.springbootdemoapp.converter.ProductMapper;
 import ru.gb.springbootdemoapp.dto.ProductDto;
 import ru.gb.springbootdemoapp.service.ProductService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class ProductController {
@@ -27,12 +26,12 @@ public class ProductController {
     List<ProductDto> students =  productService.getAll().stream()
         .map(productMapper::productToProductDto).collect(Collectors.toList());
     model.addAttribute("products", students);
-    return "product_list";
+    return "home";
   }
 
-  @GetMapping("/info/{id}")
+  @GetMapping("/product/info/{id}")
   public String getStudentInfo(@PathVariable Long id, Model model) {
-    model.addAttribute("product", productMapper.productToProductDto(productService.findById(id)));
+    model.addAttribute("product", productMapper.productToProductDto(productService.findById(id).orElse(null)));
     return "product_info";
   }
 }
